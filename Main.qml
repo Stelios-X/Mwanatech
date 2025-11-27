@@ -26,7 +26,7 @@ Window {
             text: "Option 1"
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: {
-                messageText.text = "You clicked Option 1 - we have a winner"
+                messageText.text = "You clicked Option 1 - we have a winner, victory is innevitable"
             }
         }
 
@@ -34,7 +34,7 @@ Window {
             text: "Option 2"
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: {
-                messageText.text = "You clicked Option 2 - Second round's on me"
+                messageText.text = "You clicked Option 2 - Second round's on me - no doubt"
             }
         }
 
