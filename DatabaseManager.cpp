@@ -24,6 +24,7 @@ bool DatabaseManager::connectToDatabase()
     if (!m_db.open()) {
         qCritical() << "Error: connection with database failed";
         qCritical() << m_db.lastError().text();
+        qCritical() << "Available drivers:" << QSqlDatabase::drivers();
         return false;
     }
 

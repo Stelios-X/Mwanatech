@@ -1,2 +1,0 @@
-set(__QT_DEPLOY_TARGET_appMwanatech_FILE /home/brandon/projects/Mwanatech/Mwanatech/build/Desktop-Debug/appMwanatech)
-set(__QT_DEPLOY_TARGET_appMwanatech_TYPE EXECUTABLE)

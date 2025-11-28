@@ -3,18 +3,30 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 Window {
-    width: 800
-    height: 600
+    width: 900
+    height: 650
     visible: true
     title: qsTr("Digital Home Library")
 
-    property int currentBookId: -1 // -1 means we are adding a new book
+    // Dialog for adding/editing books
+    BookEditDialog {
+        id: editDialog
+        
+        onAddBookRequested: function(title, author, status, contactName, contactNumber) {
+            libraryModel.addBook(title, author, status, contactName, contactNumber)
+        }
+        
+        onUpdateBookRequested: function(id, title, author, status, contactName, contactNumber) {
+            libraryModel.updateBook(id, title, author, status, contactName, contactNumber)
+        }
+    }
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 20
+        anchors.margins: 15
         spacing: 10
 
+        // Header
         Text {
             text: "My Library"
             font.pixelSize: 24
@@ -22,153 +34,107 @@ Window {
             Layout.alignment: Qt.AlignHCenter
         }
 
-        // Input Form
-        GridLayout {
-            columns: 2
-            rowSpacing: 10
-            columnSpacing: 10
+        // Add Book Form
+        GroupBox {
+            title: "Add Book"
+            Layout.fillWidth: true
+            
+            GridLayout {
+                anchors.fill: parent
+                columns: 2
+                rowSpacing: 10
+                columnSpacing: 10
 
-            Label { text: "Title:" }
-            TextField { id: titleField; placeholderText: "Book Title"; Layout.fillWidth: true }
-
-            Label { text: "Author:" }
-            TextField { id: authorField; placeholderText: "Author Name"; Layout.fillWidth: true }
-
-            Label { text: "Status:" }
-            ComboBox {
-                id: statusCombo
-                model: ["SHELF", "LOANED", "BORROWED"]
-                Layout.fillWidth: true
-            }
-
-            Label { text: "Contact Name:" }
-            TextField { 
-                id: contactNameField
-                placeholderText: "Borrower/Lender Name"
-                enabled: statusCombo.currentText !== "SHELF"
-                Layout.fillWidth: true 
-            }
-
-            Label { text: "Contact #:" }
-            TextField { 
-                id: contactNumberField
-                placeholderText: "Phone Number"
-                enabled: statusCombo.currentText !== "SHELF"
-                Layout.fillWidth: true 
-            }
-        }
-
-        Button {
-            text: currentBookId === -1 ? "Add Book" : "Update Book"
-            Layout.alignment: Qt.AlignRight
-            onClicked: {
-                if (titleField.text === "" || authorField.text === "") return;
-                
-                if (currentBookId === -1) {
-                    // Add Mode
-                    libraryModel.addBook(
-                        titleField.text,
-                        authorField.text,
-                        statusCombo.currentText,
-                        contactNameField.text,
-                        contactNumberField.text
-                    )
-                } else {
-                    // Update Mode
-                    libraryModel.updateBook(
-                        currentBookId,
-                        titleField.text,
-                        authorField.text,
-                        statusCombo.currentText,
-                        contactNameField.text,
-                        contactNumberField.text
-                    )
-                    currentBookId = -1 // Reset to Add Mode
+                Label { text: "Title:" }
+                TextField { 
+                    id: quickTitleField
+                    placeholderText: "Book Title"
+                    Layout.fillWidth: true 
                 }
 
-                // Clear fields
-                titleField.text = ""
-                authorField.text = ""
-                contactNameField.text = ""
-                contactNumberField.text = ""
-                statusCombo.currentIndex = 0
+                Label { text: "Author:" }
+                TextField { 
+                    id: quickAuthorField
+                    placeholderText: "Author Name"
+                    Layout.fillWidth: true 
+                }
+
+                Label { text: "Status:" }
+                ComboBox {
+                    id: quickStatusCombo
+                    model: ["SHELF", "LOANED", "BORROWED"]
+                    Layout.fillWidth: true
+                }
+
+                Label { text: "Contact Name:" }
+                TextField { 
+                    id: quickContactNameField
+                    placeholderText: "Borrower/Lender Name"
+                    enabled: quickStatusCombo.currentText !== "SHELF"
+                    Layout.fillWidth: true 
+                }
+
+                Label { text: "Contact #:" }
+                TextField { 
+                    id: quickContactNumberField
+                    placeholderText: "Phone Number"
+                    enabled: quickStatusCombo.currentText !== "SHELF"
+                    Layout.fillWidth: true 
+                }
+                
+                Item { Layout.fillWidth: true } // Spacer
+                
+                RowLayout {
+                    Layout.fillWidth: true
+                    Layout.columnSpan: 2
+                    Layout.alignment: Qt.AlignRight
+                    spacing: 10
+                    
+                    Button {
+                        text: "Add Book"
+                        onClicked: {
+                            if (quickTitleField.text === "" || quickAuthorField.text === "") return
+                            
+                            libraryModel.addBook(
+                                quickTitleField.text,
+                                quickAuthorField.text,
+                                quickStatusCombo.currentText,
+                                quickContactNameField.text,
+                                quickContactNumberField.text
+                            )
+                            
+                            quickTitleField.text = ""
+                            quickAuthorField.text = ""
+                            quickContactNameField.text = ""
+                            quickContactNumberField.text = ""
+                            quickStatusCombo.currentIndex = 0
+                        }
+                    }
+                }
             }
         }
 
-        Button {
-            text: "Cancel Edit"
-            visible: currentBookId !== -1
-            Layout.alignment: Qt.AlignRight
-            onClicked: {
-                currentBookId = -1
-                titleField.text = ""
-                authorField.text = ""
-                contactNameField.text = ""
-                contactNumberField.text = ""
-                statusCombo.currentIndex = 0
-            }
-        }
-
-        // List View
-        ListView {
-            id: bookList
+        // Books List
+        BookListView {
+            id: bookListComponent
             Layout.fillWidth: true
             Layout.fillHeight: true
-            clip: true
-            model: libraryModel
-            spacing: 5
-
-            delegate: Rectangle {
-                width: bookList.width
-                height: 80
-                color: "#f0f0f0"
-                border.color: "#ddd"
-                radius: 5
-
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.margins: 10
-
-                    ColumnLayout {
-                        Layout.fillWidth: true
-                        Text { text: model.title; font.bold: true; font.pixelSize: 16 }
-                        Text { text: "by " + model.author; font.italic: true }
-                    }
-
-                    ColumnLayout {
-                        Layout.preferredWidth: 200
-                        Text { 
-                            text: model.status 
-                            color: model.status === "SHELF" ? "green" : (model.status === "LOANED" ? "blue" : "orange")
-                            font.bold: true
-                        }
-                        Text { 
-                            text: model.status !== "SHELF" ? (model.status === "LOANED" ? "To: " : "From: ") + model.contactName : ""
-                            visible: model.status !== "SHELF"
-                        }
-                        Text { 
-                            text: model.status !== "SHELF" ? "Tel: " + model.contactNumber : ""
-                            visible: model.status !== "SHELF"
-                        }
-                    }
-
-                    Button {
-                        text: "Edit"
-                        onClicked: {
-                            currentBookId = model.id
-                            titleField.text = model.title
-                            authorField.text = model.author
-                            statusCombo.currentIndex = statusCombo.indexOfValue(model.status)
-                            contactNameField.text = model.contactName
-                            contactNumberField.text = model.contactNumber
-                        }
-                    }
-
-                    Button {
-                        text: "Delete"
-                        onClicked: libraryModel.removeBook(index)
-                    }
-                }
+            bookModel: libraryModel
+            
+            // Handle edit requests from list view
+            onEditBookRequested: function(bookId, title, author, status, contactName, contactNumber) {
+                editDialog.bookId = bookId
+                editDialog.bookTitle = title
+                editDialog.bookAuthor = author
+                editDialog.bookStatus = status
+                editDialog.bookContactName = contactName
+                editDialog.bookContactNumber = contactNumber
+                editDialog.open()
+            }
+            
+            // Handle delete requests from list view
+            onDeleteBookRequested: function(index) {
+                libraryModel.removeBook(index)
             }
         }
     }
