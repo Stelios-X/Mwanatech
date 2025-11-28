@@ -108,6 +108,7 @@ Rectangle {
                         Layout.fillWidth: true
                         onClicked: deleteBookRequested(index)
                     }
+                }
             }
         }
     }
