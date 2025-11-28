@@ -7,6 +7,14 @@
 
 int main(int argc, char *argv[])
 {
+    // Force non-native style
+    qputenv("QT_QUICK_CONTROLS_STYLE", "Material");
+    qputenv("QT_STYLE_OVERRIDE", "Material");
+
+    // FIX: Force Qt to look in the system plugin directory for drivers (Arch Linux specific)
+    // This fixes the "Driver not loaded" error when running from Qt Creator
+    qputenv("QT_PLUGIN_PATH", "/usr/lib/qt6/plugins");
+
     QGuiApplication app(argc, argv);
 
     QQuickStyle::setStyle("Material");

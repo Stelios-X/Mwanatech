@@ -35,6 +35,7 @@ public:
 
     Q_INVOKABLE void refresh();
     Q_INVOKABLE void addBook(const QString &title, const QString &author, const QString &status, const QString &contactName, const QString &contactNumber);
+    Q_INVOKABLE void updateBook(int id, const QString &title, const QString &author, const QString &status, const QString &contactName, const QString &contactNumber);
     Q_INVOKABLE void removeBook(int index);
 
 private:

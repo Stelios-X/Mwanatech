@@ -20,6 +20,8 @@ qt_add_qml_module(appMwanatech
     URI Mwanatech
     QML_FILES
         Main.qml
+        BookEditDialog.qml
+        BookListView.qml
 )
 
 qt_add_resources(appMwanatech "configuration"

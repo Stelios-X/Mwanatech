@@ -1,6 +1,0 @@
-module Mwanatech
-typeinfo appMwanatech.qmltypes
-prefer :/qt/qml/Mwanatech/
-Main 254.0 Main.qml
-depends QtQuick
-

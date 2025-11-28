@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/qt/qml/Mwanatech">
-    <file alias="qmldir">/home/brandon/projects/Mwanatech/Mwanatech/build/Desktop-Debug/Mwanatech/qmldir</file>
-  </qresource>
-</RCC>
-
