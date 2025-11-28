@@ -17,6 +17,30 @@ Rectangle {
     // Property for the book model
     property var bookModel
     
+    // Confirmation dialog for deletion
+    Dialog {
+        id: deleteConfirmDialog
+        title: "Confirm Deletion"
+        standardButtons: Dialog.Yes | Dialog.No
+        width: 350
+        height: 150
+        
+        property int bookIndexToDelete: -1
+        property string bookTitleToDelete: ""
+        
+        Text {
+            text: "Are you sure you want to delete \"" + deleteConfirmDialog.bookTitleToDelete + "\"?"
+            wrapMode: Text.Wrap
+            anchors.fill: parent
+            anchors.margins: 20
+            verticalAlignment: Text.AlignVCenter
+        }
+        
+        onAccepted: {
+            deleteBookRequested(bookIndexToDelete)
+        }
+    }
+    
     ListView {
         id: listView
         anchors.fill: parent
@@ -106,7 +130,11 @@ Rectangle {
                     Button {
                         text: "Delete"
                         Layout.fillWidth: true
-                        onClicked: deleteBookRequested(index)
+                        onClicked: {
+                            deleteConfirmDialog.bookIndexToDelete = index
+                            deleteConfirmDialog.bookTitleToDelete = model.title
+                            deleteConfirmDialog.open()
+                        }
                     }
                 }
             }
