@@ -31,6 +31,51 @@ Rectangle {
     // Note: searchModel is accessed as a global context property from C++
     // No need to declare it here
     
+    // ========== TIMER FOR SEARCH DELAY ==========
+    // This timer provides a small delay before executing search
+    // This prevents searching on every single keystroke for better performance
+    Timer {
+        id: searchDelayTimer
+        interval: 300  // Wait 300ms after user stops typing before searching
+        running: false
+        repeat: false
+        
+        // When timer fires, execute the search
+        onTriggered: {
+            executeSearch()
+        }
+    }
+    
+    // ========== HELPER FUNCTION ==========
+    // This function executes the search based on current UI state
+    function executeSearch() {
+        // Show loading indicator
+        searchBusy.running = true
+        
+        // Only search if there's input text
+        if (searchInput.text.length > 0) {
+            // Get the selected filter type
+            let filterType = filterCombo.currentText.toLowerCase()
+            
+            // Convert filter type to model parameter
+            let searchType = filterType === "all" ? "all" :
+                           filterType === "title" ? "title" :
+                           filterType === "author" ? "author" : "status"
+            
+            // Execute the search in C++ model
+            searchModel.performSearch(searchInput.text, searchType)
+            
+            // Update grid model to show results
+            resultsGrid.model = searchModel
+        } else {
+            // If search box is empty, show empty grid (no results until user searches)
+            resultsGrid.model = null
+        }
+        
+        // Hide loading indicator
+        searchBusy.running = false
+    }
+    
     // ========== MAIN LAYOUT ==========
     ColumnLayout {
         anchors.fill: parent
@@ -63,7 +108,7 @@ Rectangle {
                 // Contains the search text field and filter type selector
                 RowLayout {
                     Layout.fillWidth: true
-                    spacing: 10
+                    spacing: 12
                     
                     // Search text input field
                     Rectangle {
@@ -93,52 +138,68 @@ Rectangle {
                                 Layout.fillWidth: true
                                 background: Rectangle { color: "transparent" }
                                 
-                                // Trigger search as user types (real-time search)
-                                onTextChanged: {
-                                    // Only search if there's input text
-                                    if (text.length > 0) {
-                                        // Get the selected filter type
-                                        let filterType = filterCombo.currentText.toLowerCase()
-                                        
-                                        // Convert filter type to model parameter
-                                        let searchType = filterType === "all" ? "all" :
-                                                       filterType === "title" ? "title" :
-                                                       filterType === "author" ? "author" : "status"
-                                        
-                                        // Execute the search in C++ model
-                                        searchModel.performSearch(text, searchType)
-                                    } else {
-                                        // If search box is empty, show all books
-                                        searchModel.clearSearch()
-                                    }
+                                // Handle Enter key press for search
+                                onAccepted: {
+                                    executeSearch()
                                 }
+                                
+                                // Trigger search as user types (real-time search with delay)
+                                onTextChanged: {
+                                    // Reset and restart the search delay timer
+                                    searchDelayTimer.restart()
+                                }
+                            }
+                            
+                            // Loading indicator (shown while searching)
+                            BusyIndicator {
+                                id: searchBusy
+                                running: false
+                                implicitWidth: 24
+                                implicitHeight: 24
+                                visible: running
                             }
                         }
                     }
                     
                     // Filter type selector dropdown
-                    ColumnLayout {
-                        spacing: 3
+                    ComboBox {
+                        id: filterCombo
+                        model: ["All", "Title", "Author", "Status"]
+                        Layout.preferredWidth: 110
+                        Layout.preferredHeight: 40
+                    }
+                    
+                    // Search button - explicitly trigger search
+                    Button {
+                        text: "Search"
+                        Layout.preferredWidth: 80
+                        Layout.preferredHeight: 40
                         
-                        Text {
-                            text: "Filter by:"
-                            font.pixelSize: 11
-                            color: "#6b7280"
+                        background: Rectangle {
+                            color: "#3b82f6"
+                            radius: 4
+                            border.color: "#1e40af"
+                            border.width: 1
                         }
                         
-                        ComboBox {
-                            id: filterCombo
-                            model: ["All", "Title", "Author", "Status"]
-                            Layout.preferredWidth: 120
-                            Layout.preferredHeight: 35
+                        contentItem: Text {
+                            text: parent.text
+                            color: "#ffffff"
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            font.pixelSize: 12
+                            font.bold: true
                         }
+                        
+                        // Execute search when clicked
+                        onClicked: executeSearch()
                     }
                     
                     // Clear search button
                     Button {
                         text: "Clear"
-                        Layout.preferredWidth: 80
-                        Layout.preferredHeight: 35
+                        Layout.preferredWidth: 70
+                        Layout.preferredHeight: 40
                         
                         background: Rectangle {
                             color: "#f3f4f6"
@@ -152,13 +213,14 @@ Rectangle {
                             color: "#6b7280"
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: 11
+                            font.pixelSize: 12
                         }
                         
                         // Clear the search when clicked
                         onClicked: {
                             searchInput.text = ""
                             searchModel.clearSearch()
+                            resultsGrid.model = null  // Clear grid until new search
                         }
                     }
                 }
@@ -168,65 +230,93 @@ Rectangle {
         // ========== RESULTS DISPLAY SECTION ==========
         // This section shows the grid of search results
         
-        // Results header showing count
+        // ========== RESULTS HEADER ==========
+        // Shows the count and status of search results
         Rectangle {
             Layout.fillWidth: true
             height: 45
             color: "#ffffff"
             border.width: 1
             border.color: "#e5e7eb"
+            visible: resultsGrid.model !== null  // Only show when there are results
             
             RowLayout {
                 anchors.fill: parent
                 anchors.margins: 15
                 spacing: 10
                 
-                // Display search results count
+                // Display search results count or empty state message
                 Text {
                     text: {
-                        // Show different text depending on search state
-                        if (searchModel.currentSearch === "") {
-                            return "All Books (" + searchModel.resultCount + ")"
+                        // If grid is empty, show appropriate message
+                        if (resultsGrid.model === null) {
+                            return "Enter a search term to find books"
+                        } else if (searchModel.resultCount === 0) {
+                            return "No results found for \"" + searchModel.currentSearch + "\""
                         } else {
                             return "Search Results (" + searchModel.resultCount + ")"
                         }
                     }
                     font.pixelSize: 14
                     font.bold: true
-                    color: "#1f2937"
-                }
-                
-                // Show search query if active
-                Rectangle {
-                    visible: searchModel.currentSearch !== ""
-                    Layout.preferredWidth: 200
-                    Layout.preferredHeight: 28
-                    color: "#dbeafe"
-                    radius: 4
-                    
-                    Text {
-                        anchors.centerIn: parent
-                        text: "Searching for: \"" + searchModel.currentSearch + "\""
-                        font.pixelSize: 11
-                        color: "#1e40af"
-                    }
+                    color: searchModel.resultCount === 0 ? "#ef4444" : "#1f2937"
                 }
                 
                 Item { Layout.fillWidth: true }
             }
         }
         
-        // ========== RESULTS GRID ==========
-        // Displays books in a responsive grid layout
-        ScrollView {
+        // ========== RESULTS DISPLAY AREA ==========
+        // Shows either empty state or search results in a grid
+        Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            ScrollBar.vertical.policy: ScrollBar.AsNeeded
-            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
             
-            GridView {
-                id: resultsGrid
-                model: searchModel
+            // Empty state message - shown when no search has been performed
+            Rectangle {
+                id: emptyStateArea
+                anchors.fill: parent
+                color: "#f9fafb"
+                visible: resultsGrid.model === null
+                
+                ColumnLayout {
+                    anchors.centerIn: parent
+                    spacing: 15
+                    
+                    Text {
+                        text: "🔍"
+                        font.pixelSize: 48
+                        Layout.alignment: Qt.AlignHCenter
+                    }
+                    
+                    Text {
+                        text: "Start Searching"
+                        font.pixelSize: 18
+                        font.bold: true
+                        color: "#1f2937"
+                        Layout.alignment: Qt.AlignHCenter
+                    }
+                    
+                    Text {
+                        text: "Enter a book title, author name, or select a status filter to see results"
+                        font.pixelSize: 13
+                        color: "#6b7280"
+                        horizontalAlignment: Text.AlignHCenter
+                        Layout.alignment: Qt.AlignHCenter
+                    }
+                }
+            }
+            
+            // Results grid - shown when search has been performed
+            ScrollView {
+                anchors.fill: parent
+                visible: resultsGrid.model !== null
+                ScrollBar.vertical.policy: ScrollBar.AsNeeded
+                ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                
+                GridView {
+                    id: resultsGrid
+                    model: null  // Start with no model until user searches
                 cellWidth: Math.max(250, parent.width / Math.max(2, Math.floor(parent.width / 280)))
                 cellHeight: 280
                 
@@ -400,6 +490,7 @@ Rectangle {
                             }
                         }
                     }
+                }
                 }
             }
         }
