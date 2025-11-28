@@ -1,12 +1,15 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickStyle>
 #include "DatabaseManager.h"
 #include "LibraryModel.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+
+    QQuickStyle::setStyle("Material");
 
     // Initialize Database
     DatabaseManager dbManager;
