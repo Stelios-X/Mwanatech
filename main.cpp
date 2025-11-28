@@ -4,6 +4,7 @@
 #include <QQuickStyle>
 #include "DatabaseManager.h"
 #include "LibraryModel.h"
+#include "SearchModel.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,9 +28,13 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    // Register LibraryModel
+    // Register LibraryModel - Main book list model
     LibraryModel libraryModel;
     engine.rootContext()->setContextProperty("libraryModel", &libraryModel);
+
+    // Register SearchModel - Search and filter model
+    SearchModel searchModel;
+    engine.rootContext()->setContextProperty("searchModel", &searchModel);
 
     QObject::connect(
         &engine,

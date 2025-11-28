@@ -80,15 +80,20 @@ Window {
                 }
             }
 
-            // Page 3: Search (placeholder for future)
-            Rectangle {
-                color: "#f9fafb"
+            // Page 3: Search
+            SearchPage {
+                onEditBookRequested: function(bookId, title, author, status, contactName, contactNumber) {
+                    editDialog.bookId = bookId
+                    editDialog.bookTitle = title
+                    editDialog.bookAuthor = author
+                    editDialog.bookStatus = status
+                    editDialog.bookContactName = contactName
+                    editDialog.bookContactNumber = contactNumber
+                    editDialog.open()
+                }
                 
-                Text {
-                    anchors.centerIn: parent
-                    text: "Search functionality coming soon..."
-                    font.pixelSize: 18
-                    color: "#6b7280"
+                onDeleteBookRequested: function(index) {
+                    libraryModel.removeBook(index)
                 }
             }
         }
