@@ -4,7 +4,7 @@ project(Mwanatech VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick Sql)
+find_package(Qt6 REQUIRED COMPONENTS Quick Sql QuickControls2)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -39,7 +39,7 @@ set_target_properties(appMwanatech PROPERTIES
 )
 
 target_link_libraries(appMwanatech
-    PRIVATE Qt6::Quick Qt6::Sql
+    PRIVATE Qt6::Quick Qt6::Sql Qt6::QuickControls2
 )
 
 include(GNUInstallDirs)
