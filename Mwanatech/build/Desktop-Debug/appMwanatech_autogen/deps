@@ -1155,6 +1155,21 @@ appMwanatech_autogen/timestamp: \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6Quick/Qt6QuickTargets-relwithdebinfo.cmake \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6Quick/Qt6QuickTargets.cmake \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6Quick/Qt6QuickVersionlessAliasTargets.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2/Qt6QuickControls2AdditionalTargetInfo.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2/Qt6QuickControls2Config.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2/Qt6QuickControls2ConfigVersion.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2/Qt6QuickControls2ConfigVersionImpl.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2/Qt6QuickControls2Dependencies.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2/Qt6QuickControls2Targets-relwithdebinfo.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2/Qt6QuickControls2Targets.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2/Qt6QuickControls2VersionlessAliasTargets.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2Private/Qt6QuickControls2PrivateAdditionalTargetInfo.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2Private/Qt6QuickControls2PrivateConfig.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2Private/Qt6QuickControls2PrivateConfigVersion.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2Private/Qt6QuickControls2PrivateConfigVersionImpl.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2Private/Qt6QuickControls2PrivateDependencies.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2Private/Qt6QuickControls2PrivateTargets.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2Private/Qt6QuickControls2PrivateVersionlessAliasTargets.cmake \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickPrivate/Qt6QuickPrivateAdditionalTargetInfo.cmake \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickPrivate/Qt6QuickPrivateConfig.cmake \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickPrivate/Qt6QuickPrivateConfigVersion.cmake \
@@ -1162,6 +1177,21 @@ appMwanatech_autogen/timestamp: \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickPrivate/Qt6QuickPrivateDependencies.cmake \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickPrivate/Qt6QuickPrivateTargets.cmake \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickPrivate/Qt6QuickPrivateVersionlessAliasTargets.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2AdditionalTargetInfo.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2Config.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2ConfigVersion.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2ConfigVersionImpl.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2Dependencies.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2Targets-relwithdebinfo.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2Targets.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2/Qt6QuickTemplates2VersionlessAliasTargets.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2Private/Qt6QuickTemplates2PrivateAdditionalTargetInfo.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2Private/Qt6QuickTemplates2PrivateConfig.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2Private/Qt6QuickTemplates2PrivateConfigVersion.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2Private/Qt6QuickTemplates2PrivateConfigVersionImpl.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2Private/Qt6QuickTemplates2PrivateDependencies.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2Private/Qt6QuickTemplates2PrivateTargets.cmake \
+	/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2Private/Qt6QuickTemplates2PrivateVersionlessAliasTargets.cmake \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6Sql/Qt6QSQLiteDriverPluginAdditionalTargetInfo.cmake \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6Sql/Qt6QSQLiteDriverPluginConfig.cmake \
 	/usr/lib/x86_64-linux-gnu/cmake/Qt6Sql/Qt6QSQLiteDriverPluginTargets-relwithdebinfo.cmake \

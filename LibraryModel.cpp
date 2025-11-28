@@ -90,6 +90,24 @@ void LibraryModel::addBook(const QString &title, const QString &author, const QS
     }
 }
 
+void LibraryModel::updateBook(int id, const QString &title, const QString &author, const QString &status, const QString &contactName, const QString &contactNumber)
+{
+    QSqlQuery query;
+    query.prepare("UPDATE books SET title = :title, author = :author, status = :status, contact_name = :contactName, contact_number = :contactNumber WHERE id = :id");
+    query.bindValue(":title", title);
+    query.bindValue(":author", author);
+    query.bindValue(":status", status);
+    query.bindValue(":contactName", contactName);
+    query.bindValue(":contactNumber", contactNumber);
+    query.bindValue(":id", id);
+
+    if (query.exec()) {
+        refresh();
+    } else {
+        qCritical() << "Failed to update book:" << query.lastError().text();
+    }
+}
+
 void LibraryModel::removeBook(int index)
 {
     if (index < 0 || index >= m_books.count()) return;

@@ -8,6 +8,8 @@ Window {
     visible: true
     title: qsTr("Digital Home Library")
 
+    property int currentBookId: -1 // -1 means we are adding a new book
+
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 20
@@ -57,20 +59,48 @@ Window {
         }
 
         Button {
-            text: "Add Book"
+            text: currentBookId === -1 ? "Add Book" : "Update Book"
             Layout.alignment: Qt.AlignRight
             onClicked: {
                 if (titleField.text === "" || authorField.text === "") return;
                 
-                libraryModel.addBook(
-                    titleField.text,
-                    authorField.text,
-                    statusCombo.currentText,
-                    contactNameField.text,
-                    contactNumberField.text
-                )
+                if (currentBookId === -1) {
+                    // Add Mode
+                    libraryModel.addBook(
+                        titleField.text,
+                        authorField.text,
+                        statusCombo.currentText,
+                        contactNameField.text,
+                        contactNumberField.text
+                    )
+                } else {
+                    // Update Mode
+                    libraryModel.updateBook(
+                        currentBookId,
+                        titleField.text,
+                        authorField.text,
+                        statusCombo.currentText,
+                        contactNameField.text,
+                        contactNumberField.text
+                    )
+                    currentBookId = -1 // Reset to Add Mode
+                }
 
                 // Clear fields
+                titleField.text = ""
+                authorField.text = ""
+                contactNameField.text = ""
+                contactNumberField.text = ""
+                statusCombo.currentIndex = 0
+            }
+        }
+
+        Button {
+            text: "Cancel Edit"
+            visible: currentBookId !== -1
+            Layout.alignment: Qt.AlignRight
+            onClicked: {
+                currentBookId = -1
                 titleField.text = ""
                 authorField.text = ""
                 contactNameField.text = ""
@@ -119,6 +149,18 @@ Window {
                         Text { 
                             text: model.status !== "SHELF" ? "Tel: " + model.contactNumber : ""
                             visible: model.status !== "SHELF"
+                        }
+                    }
+
+                    Button {
+                        text: "Edit"
+                        onClicked: {
+                            currentBookId = model.id
+                            titleField.text = model.title
+                            authorField.text = model.author
+                            statusCombo.currentIndex = statusCombo.indexOfValue(model.status)
+                            contactNameField.text = model.contactName
+                            contactNumberField.text = model.contactNumber
                         }
                     }
 

@@ -61,11 +61,43 @@
                         "access": "public",
                         "arguments": [
                             {
+                                "name": "id",
+                                "type": "int"
+                            },
+                            {
+                                "name": "title",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "author",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "status",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "contactName",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "contactNumber",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "updateBook",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
                                 "name": "index",
                                 "type": "int"
                             }
                         ],
-                        "index": 2,
+                        "index": 3,
                         "name": "removeBook",
                         "returnType": "void"
                     }

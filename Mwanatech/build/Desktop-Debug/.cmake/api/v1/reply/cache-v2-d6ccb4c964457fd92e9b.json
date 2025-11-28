@@ -5382,6 +5382,162 @@
 			"value" : "ON"
 		},
 		{
+			"name" : "QT_FEATURE_quickcontrols2_basic",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quickcontrols2_basic (from target Qt6::QuickControls2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "ON"
+		},
+		{
+			"name" : "QT_FEATURE_quickcontrols2_fluentwinui3",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quickcontrols2_fluentwinui3 (from target Qt6::QuickControls2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "ON"
+		},
+		{
+			"name" : "QT_FEATURE_quickcontrols2_fusion",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quickcontrols2_fusion (from target Qt6::QuickControls2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "ON"
+		},
+		{
+			"name" : "QT_FEATURE_quickcontrols2_imagine",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quickcontrols2_imagine (from target Qt6::QuickControls2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "ON"
+		},
+		{
+			"name" : "QT_FEATURE_quickcontrols2_ios",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quickcontrols2_ios (from target Qt6::QuickControls2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "OFF"
+		},
+		{
+			"name" : "QT_FEATURE_quickcontrols2_macos",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quickcontrols2_macos (from target Qt6::QuickControls2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "OFF"
+		},
+		{
+			"name" : "QT_FEATURE_quickcontrols2_material",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quickcontrols2_material (from target Qt6::QuickControls2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "ON"
+		},
+		{
+			"name" : "QT_FEATURE_quickcontrols2_universal",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quickcontrols2_universal (from target Qt6::QuickControls2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "ON"
+		},
+		{
+			"name" : "QT_FEATURE_quickcontrols2_windows",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quickcontrols2_windows (from target Qt6::QuickControls2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "OFF"
+		},
+		{
+			"name" : "QT_FEATURE_quicktemplates2_calendar",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quicktemplates2_calendar (from target Qt6::QuickTemplates2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "ON"
+		},
+		{
+			"name" : "QT_FEATURE_quicktemplates2_container",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quicktemplates2_container (from target Qt6::QuickTemplates2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "ON"
+		},
+		{
+			"name" : "QT_FEATURE_quicktemplates2_hover",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quicktemplates2_hover (from target Qt6::QuickTemplates2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "ON"
+		},
+		{
+			"name" : "QT_FEATURE_quicktemplates2_multitouch",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Qt feature: quicktemplates2_multitouch (from target Qt6::QuickTemplates2)"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "ON"
+		},
+		{
 			"name" : "QT_FEATURE_raster_64bit",
 			"properties" : 
 			[
@@ -7230,6 +7386,30 @@
 			"value" : "/usr/lib/x86_64-linux-gnu/cmake/Qt6Qml"
 		},
 		{
+			"name" : "Qt6QuickControls2Private_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for Qt6QuickControls2Private."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2Private"
+		},
+		{
+			"name" : "Qt6QuickControls2_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for Qt6QuickControls2."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickControls2"
+		},
+		{
 			"name" : "Qt6QuickPrivate_DIR",
 			"properties" : 
 			[
@@ -7240,6 +7420,30 @@
 			],
 			"type" : "PATH",
 			"value" : "/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickPrivate"
+		},
+		{
+			"name" : "Qt6QuickTemplates2Private_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for Qt6QuickTemplates2Private."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2Private"
+		},
+		{
+			"name" : "Qt6QuickTemplates2_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for Qt6QuickTemplates2."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/lib/x86_64-linux-gnu/cmake/Qt6QuickTemplates2"
 		},
 		{
 			"name" : "Qt6Quick_DIR",
@@ -7387,7 +7591,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/local"
+			"value" : "/tmp"
 		},
 		{
 			"name" : "__pkg_config_arguments_PKG_XKB",
