@@ -17,6 +17,9 @@ struct Book {
 class LibraryModel : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
+    Q_PROPERTY(int shelfCount READ getShelfCount NOTIFY countChanged)
+    Q_PROPERTY(int loanedCount READ getLoanedCount NOTIFY countChanged)
 public:
     enum BookRoles {
         IdRole = Qt::UserRole + 1,
@@ -37,6 +40,12 @@ public:
     Q_INVOKABLE void addBook(const QString &title, const QString &author, const QString &status, const QString &contactName, const QString &contactNumber);
     Q_INVOKABLE void updateBook(int id, const QString &title, const QString &author, const QString &status, const QString &contactName, const QString &contactNumber);
     Q_INVOKABLE void removeBook(int index);
+    
+    int getShelfCount() const;
+    int getLoanedCount() const;
+
+signals:
+    void countChanged();
 
 private:
     QList<Book> m_books;

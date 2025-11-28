@@ -22,6 +22,10 @@ qt_add_qml_module(appMwanatech
         Main.qml
         BookEditDialog.qml
         BookListView.qml
+        BooksGrid.qml
+        NavigationMenu.qml
+        LandingPage.qml
+        AddBookForm.qml
 )
 
 qt_add_resources(appMwanatech "configuration"

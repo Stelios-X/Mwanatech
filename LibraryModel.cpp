@@ -71,6 +71,7 @@ void LibraryModel::refresh()
         m_books.append(book);
     }
     endResetModel();
+    emit countChanged();
 }
 
 void LibraryModel::addBook(const QString &title, const QString &author, const QString &status, const QString &contactName, const QString &contactNumber)
@@ -123,3 +124,22 @@ void LibraryModel::removeBook(int index)
         qCritical() << "Failed to delete book:" << query.lastError().text();
     }
 }
+
+int LibraryModel::getShelfCount() const
+{
+    int count = 0;
+    for (const Book &book : m_books) {
+        if (book.status == "SHELF") count++;
+    }
+    return count;
+}
+
+int LibraryModel::getLoanedCount() const
+{
+    int count = 0;
+    for (const Book &book : m_books) {
+        if (book.status == "LOANED" || book.status == "BORROWED") count++;
+    }
+    return count;
+}
+
