@@ -23,7 +23,7 @@ Dialog {
     
     // Dialog configuration
     width: 450
-    height: 380
+    height: 550
     title: bookId === -1 ? "Add New Book" : "Edit Book"
     standardButtons: Dialog.Ok | Dialog.Cancel
     
