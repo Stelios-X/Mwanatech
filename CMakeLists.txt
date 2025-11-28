@@ -22,6 +22,11 @@ qt_add_qml_module(appMwanatech
         Main.qml
 )
 
+qt_add_resources(appMwanatech "configuration"
+    PREFIX "/"
+    FILES qtquickcontrols2.conf
+)
+
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.

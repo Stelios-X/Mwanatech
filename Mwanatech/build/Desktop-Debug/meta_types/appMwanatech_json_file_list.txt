@@ -1,0 +1,2 @@
+/home/brandon/projects/Mwanatech/Mwanatech/build/Desktop-Debug/appMwanatech_autogen/include/../EWIEGA46WW/moc_DatabaseManager.cpp.json
+/home/brandon/projects/Mwanatech/Mwanatech/build/Desktop-Debug/appMwanatech_autogen/include/../EWIEGA46WW/moc_LibraryModel.cpp.json
