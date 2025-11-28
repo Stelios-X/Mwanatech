@@ -17,9 +17,9 @@ bool DatabaseManager::connectToDatabase()
     // NOTE: Update these credentials to match your local PostgreSQL setup
     m_db = QSqlDatabase::addDatabase("QPSQL");
     m_db.setHostName("localhost");
-    m_db.setDatabaseName("library_db"); // Ensure this DB exists
-    m_db.setUserName("postgres");       // Change to your username
-    m_db.setPassword("password");       // Change to your password
+    m_db.setDatabaseName("mwanatech_db");
+    m_db.setUserName("gallink");
+    m_db.setPassword("LS83^#NdhTSBs%^SB944dhadk52");
 
     if (!m_db.open()) {
         qCritical() << "Error: connection with database failed";
