@@ -14,6 +14,8 @@ qt_add_executable(appMwanatech
     DatabaseManager.h
     LibraryModel.cpp
     LibraryModel.h
+    SearchModel.cpp
+    SearchModel.h
 )
 
 qt_add_qml_module(appMwanatech
@@ -26,6 +28,7 @@ qt_add_qml_module(appMwanatech
         NavigationMenu.qml
         LandingPage.qml
         AddBookForm.qml
+        SearchPage.qml
 )
 
 qt_add_resources(appMwanatech "configuration"
