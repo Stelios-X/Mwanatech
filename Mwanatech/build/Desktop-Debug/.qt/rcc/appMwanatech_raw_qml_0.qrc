@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/qt/qml/Mwanatech/">
+    <file alias="Main.qml">/home/brandon/projects/Mwanatech/Main.qml</file>
+  </qresource>
+</RCC>
+
