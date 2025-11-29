@@ -177,19 +177,29 @@ void SearchModel::loadAllBooks()
 
 // performTitleSearch: Search books by title (case-insensitive partial match)
 // Example: "the fix" finds "The Fix" and "The Five"
+// Also searches for numbers and special characters like "8" in "From a Buick 8"
 void SearchModel::performTitleSearch(const QString &query)
 {
     // Clear previous results
     m_results.clear();
 
     // Convert search query to lowercase for case-insensitive comparison
-    QString lowerQuery = query.toLower();
+    QString lowerQuery = query.toLower().trimmed();
+    
+    // Return early if query is empty
+    if (lowerQuery.isEmpty()) {
+        qDebug() << "Title search: empty query";
+        return;
+    }
 
     // Iterate through all books in cache
     for (const BookResult &book : m_allBooks) {
-        // Check if book title contains the search query (case-insensitive)
-        if (book.title.toLower().contains(lowerQuery)) {
+        QString lowerTitle = book.title.toLower();
+        
+        // Primary match: exact substring contains (catches "Buick" and "8")
+        if (lowerTitle.contains(lowerQuery)) {
             m_results.append(book);  // Add matching book to results
+            continue;
         }
     }
 
@@ -204,7 +214,13 @@ void SearchModel::performAuthorSearch(const QString &query)
     m_results.clear();
 
     // Convert search query to lowercase for case-insensitive comparison
-    QString lowerQuery = query.toLower();
+    QString lowerQuery = query.toLower().trimmed();
+    
+    // Return early if query is empty
+    if (lowerQuery.isEmpty()) {
+        qDebug() << "Author search: empty query";
+        return;
+    }
 
     // Iterate through all books in cache
     for (const BookResult &book : m_allBooks) {
@@ -237,19 +253,30 @@ void SearchModel::performStatusSearch(const QString &status)
 
 // performFullSearch: Search both title and author fields
 // Example: "tolkien" finds books with "tolkien" in title OR author
+// This is more comprehensive and catches partial matches in either field
 void SearchModel::performFullSearch(const QString &query)
 {
     // Clear previous results
     m_results.clear();
 
     // Convert search query to lowercase for case-insensitive comparison
-    QString lowerQuery = query.toLower();
+    QString lowerQuery = query.toLower().trimmed();
+    
+    // Return early if query is empty
+    if (lowerQuery.isEmpty()) {
+        qDebug() << "Full search: empty query";
+        return;
+    }
 
     // Iterate through all books in cache
     for (const BookResult &book : m_allBooks) {
-        // Check if EITHER title OR author contains the search query
-        if (book.title.toLower().contains(lowerQuery) || 
-            book.author.toLower().contains(lowerQuery)) {
+        QString lowerTitle = book.title.toLower();
+        QString lowerAuthor = book.author.toLower();
+        
+        // Check if EITHER title OR author contains the search query (case-insensitive)
+        // This is sensitive enough to catch "Buick" in "From a Buick 8"
+        // and also catches numbers like "8"
+        if (lowerTitle.contains(lowerQuery) || lowerAuthor.contains(lowerQuery)) {
             m_results.append(book);  // Add matching book to results
         }
     }
