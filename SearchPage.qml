@@ -62,11 +62,21 @@ Rectangle {
                            filterType === "title" ? "title" :
                            filterType === "author" ? "author" : "status"
             
+            // DEBUG: Log the search parameters
+            console.log("Executing search: query='" + searchInput.text + "', type='" + searchType + "'")
+            
             // Execute the search in C++ model
             searchModel.performSearch(searchInput.text, searchType)
             
-            // Update grid model to show results
+            // DEBUG: Log the number of results
+            console.log("Search returned " + searchModel.resultCount + " results")
+            
+            // Temporarily clear and reset model to force refresh
+            resultsGrid.model = null
             resultsGrid.model = searchModel
+            
+            // DEBUG: Confirm model is set
+            console.log("Grid model set, count: " + (resultsGrid.model ? resultsGrid.model.count : 0))
         } else {
             // If search box is empty, show empty grid (no results until user searches)
             resultsGrid.model = null
